@@ -19,9 +19,20 @@
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+
+                                <jet-nav-link href="#">
+                                    <h3 class="font-semibold text-xl text-gray-800 leading-tight">
+                                      <slot name="header"></slot>
+                                    </h3>
                                 </jet-nav-link>
+                                <!-- <header v-if="$slots.header"> -->
+                                  <!-- <jet-nav-link href="#" :active="true"> -->
+                                      <!-- <slot name="header"></slot> -->
+                                  <!-- </jet-nav-link> -->
+                                    <!-- <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8"> -->
+                                        <!-- <slot name="header"></slot> -->
+                                    <!-- </div> -->
+                                <!-- </header> -->
                             </div>
                         </div>
 
@@ -142,6 +153,7 @@
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
+                        <!-- Hacer menu responsive acá -->
                         <jet-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </jet-responsive-nav-link>
@@ -217,16 +229,19 @@
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
+            <!-- <header class="bg-white shadow" v-if="$slots.header">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <slot name="header"></slot>
                 </div>
-            </header>
+            </header> -->
 
             <!-- Page Content -->
-            <main>
-                <slot></slot>
-            </main>
+            <div  class="flex flex-wrap sm:flex-nowrap">
+                <side-bar></side-bar>
+                <main class="bg-gray-200 shadow rounded my-5 py-6 px-4 w-full sm:w-2/3 sm:mx-2 sm:my-3 md:mx-4 md:px-10 lg:mx-auto">
+                    <slot></slot>
+                </main>
+            </div>
         </div>
     </div>
 </template>
@@ -239,6 +254,7 @@
     import JetDropdownLink from '@/Jetstream/DropdownLink.vue'
     import JetNavLink from '@/Jetstream/NavLink.vue'
     import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue'
+    import SideBar from '@/Pages/Components/SideBar.vue'
     import { Head, Link } from '@inertiajs/inertia-vue3';
 
     export default defineComponent({
@@ -255,6 +271,7 @@
             JetNavLink,
             JetResponsiveNavLink,
             Link,
+            SideBar,
         },
 
         data() {
