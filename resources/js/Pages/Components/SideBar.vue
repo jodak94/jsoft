@@ -21,6 +21,8 @@
 
                     { name: 'Escritorio', route: 'dashboard'},
 
+                    { name: 'Productos', route: 'products'},
+
                 ]
             }
         }
