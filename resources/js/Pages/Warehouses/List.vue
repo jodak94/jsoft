@@ -1,11 +1,11 @@
 <template>
     <app-layout title="Productos">
         <template #header>
-              Productos
+              Depósitos
         </template>
 
         <div>
-          Lista de Productos
+          Lista de Depósitos
         </div>
     </app-layout>
 </template>
@@ -18,7 +18,7 @@
           AppLayout,
         },
         created() {
-          console.log("List Products Components")
+          console.log("List Warehouses Components")
         }
     })
 </script>

@@ -11,6 +11,6 @@ use Inertia\Inertia;
 class ProductController extends BaseController
 {
     public function index(){
-      return Inertia::render('Products.List');
+      return Inertia::render('Products/List');
     }
 }

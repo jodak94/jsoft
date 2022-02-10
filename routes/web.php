@@ -3,8 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-// use Modules\Products\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WarehouseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,3 +31,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('products', [ProductController::class, 'index'])
     ->name('products');
+
+Route::get('warehouses', [WarehouseController::class, 'index'])
+    ->name('warehouses');

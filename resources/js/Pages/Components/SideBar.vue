@@ -18,11 +18,9 @@
             sideBarLinks() {
                 return [
                     { name: 'Editar Perfil', route: 'profile.show'},
-
                     { name: 'Escritorio', route: 'dashboard'},
-
                     { name: 'Productos', route: 'products'},
-
+                    { name: 'Depósitos', route: 'warehouses'},
                 ]
             }
         }
