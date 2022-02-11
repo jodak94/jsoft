@@ -29,8 +29,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::get('products', [ProductController::class, 'index'])
-    ->name('products');
+Route::get('products', [ProductController::class, 'index'])->name('products');
+Route::get('categories', [ProductController::class, 'category_index'])->name('categories');
+Route::get('categories/create', [ProductController::class, 'category_create'])->name('categories.create');
+Route::get('subcategories', [ProductController::class, 'subcategory_index'])->name('subcategories');
+Route::get('subcategories/create', [ProductController::class, 'subcategory_create'])->name('subcategories.create');
 
-Route::get('warehouses', [WarehouseController::class, 'index'])
-    ->name('warehouses');
+Route::get('warehouses', [WarehouseController::class, 'index'])->name('warehouses');

@@ -17,10 +17,12 @@
         computed: {
             sideBarLinks() {
                 return [
-                    { name: 'Editar Perfil', route: 'profile.show'},
                     { name: 'Escritorio', route: 'dashboard'},
                     { name: 'Productos', route: 'products'},
+                    { name: 'Editar Perfil', route: 'profile.show'},
                     { name: 'Depósitos', route: 'warehouses'},
+                    { name: 'Categorías', route: 'categories'},
+                    { name: 'Subcategorías', route: 'subcategories'},
                 ]
             }
         }
