@@ -3,29 +3,27 @@
         <template #header>
               Categorías
         </template>
-        <!-- <div class="flex items-center justify-between mb-6">
-          <search-filter v-model="form.search" class="mr-4 w-full max-w-md" @reset="reset">
+        <div class="flex items-center justify-between mb-6 text-right">
+          <!-- <search-filter v-model="form.search" class="mr-4 w-full max-w-md" @reset="reset">
             <label class="block text-gray-700">Trashed:</label>
             <select v-model="form.trashed" class="form-select mt-1 w-full">
               <option :value="null" />
               <option value="with">With Trashed</option>
               <option value="only">Only Trashed</option>
             </select>
-          </search-filter>
-          <Link class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" :href="route('categories.create')">
+          </search-filter> -->
+          <Link class="btn-default" :href="route('categories.create')">
             <span>Crear</span>
             <span class="hidden md:inline">&nbsp;Categoría</span>
           </Link>
-        </div> -->
+        </div>
+
         <div class="bg-white rounded-md shadow overflow-x-auto">
           <table class="w-full whitespace-nowrap">
             <tr class="text-left font-bold">
               <th class="pb-4 pt-6 px-6">
                 <!-- Categorías -->
-                <Link class="btn-default" :href="route('categories.create')">
-                  <span>Crear</span>
-                  <span class="hidden md:inline">&nbsp;Categoría</span>
-                </Link>
+
               </th>
             </tr>
             <tr v-for="cat in categories" :key="cat.id" class="hover:bg-gray-100 focus-within:bg-gray-100">

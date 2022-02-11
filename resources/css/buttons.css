@@ -1,9 +1,9 @@
-.btn-indigo {
-  @apply px-6 py-3 rounded bg-indigo-600 text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-orange-400 focus:bg-orange-400;
+.btn-sky {
+  @apply px-6 py-3 rounded bg-sky-600 text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-orange-400 focus:bg-orange-400;
 }
 
 .btn-default {
-  @apply bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow
+  @apply px-6 py-3 rounded bg-sky-600 text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-sky-800 focus:bg-sky-800;
 }
 
 .btn-spinner,

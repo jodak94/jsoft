@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Log;
 use App\Models\Category;
@@ -24,6 +25,13 @@ class ProductController extends BaseController
 
     public function category_create(){
       return Inertia::render('Products/Categories/Create');
+    }
+
+    public function category_store(Request $request){
+      $category = new Category();
+      $category->description = $request->description;
+      $category->save();
+      return redirect()->route('categories')->with('success', 'Categoría creada.');
     }
 
     public function subcategory_index(){

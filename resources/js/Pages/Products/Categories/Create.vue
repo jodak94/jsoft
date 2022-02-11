@@ -1,12 +1,12 @@
 <template>
-    <app-layout title="Productos">
+    <app-layout title="Categorías">
         <template #header>
               Categorías
         </template>
 
         <h1 class="mb-8 text-3xl font-bold">
-          <Link class="text-teal-400 hover:text-teal-600" :href="route('categories')">Categorías</Link>
-          <span class="text-teal-400 font-medium"> /</span>
+          <Link class="text-sky-400 hover:text-sky-600" :href="route('categories')">Categorías</Link>
+          <span class="text-sky-400 font-medium"> /</span>
           <span class="text-gray-400 font-medium"> Crear </span>
         </h1>
         <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
@@ -44,6 +44,11 @@
         },
         created() {
           console.log("List Products Components")
+        },
+        methods: {
+          store() {
+            this.form.post(route('categories'));
+          },
         }
     })
 </script>
