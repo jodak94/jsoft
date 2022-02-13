@@ -15,7 +15,6 @@ class CategoryController extends BaseController
 {
     public function index(Request $request){
       $categories = Category::select();
-      Log::info($request->description);
       if(isset($request->description) && trim($request->description) != '')
         $categories->where('description', 'like', '%'.$request->description.'%');
       $categories = $categories->orderBy('description')->get();

@@ -11,6 +11,6 @@ class Category extends Model
     protected $fillable = ['description'];
 
     public function subcategories(){
-      return $this->hasMany('App\Models\Subcategorie');
+      return $this->hasMany('App\Models\Subcategory');
     }
 }

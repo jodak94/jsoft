@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Subcategorie extends Model
+class Subcategory extends Model
 {
     protected $table = 'subcategories';
     public $translatedAttributes = [];
     protected $fillable = ['description', 'categorie_id'];
 
-    public function categorie(){
+    public function category(){
       return $this->belongsTo('App\Models\Category');
     }
 }
