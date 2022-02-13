@@ -4,7 +4,7 @@
               Categorías
         </template>
         <div class="flex items-center justify-between mb-6 text-right">
-          <search-filter v-model="form.search" class="mr-4 w-full max-w-md" @reset="reset">
+          <search-filter v-model="form.description" class="mr-4 w-full max-w-md" @reset="reset">
           </search-filter>
           <Link class="btn-default" :href="route('categories.create')">
             <span>Crear</span>
@@ -46,6 +46,8 @@
     import SearchFilter from '@/Pages/Components/SearchFilter'
     import AppLayout from '@/Layouts/AppLayout.vue'
     import mapValues from 'lodash/mapValues'
+    import throttle from 'lodash/throttle'
+    import pickBy from 'lodash/pickBy'
     export default defineComponent({
         components: {
           AppLayout,
@@ -60,9 +62,17 @@
         data(){
           return {
             form: {
-              search: this.search
+              description: this.description
             }
           }
+        },
+        watch: {
+          form: {
+            deep: true,
+            handler: throttle(function () {
+              this.$inertia.get(route('categories'), pickBy(this.form), { preserveState: true })
+            }, 150),
+          },
         },
         methods: {
           reset() {

@@ -13,8 +13,12 @@ use App\Models\Category;
 
 class CategoryController extends BaseController
 {
-    public function index(){
-      $categories = Category::orderBy('description')->get();
+    public function index(Request $request){
+      $categories = Category::select();
+      Log::info($request->description);
+      if(isset($request->description) && trim($request->description) != '')
+        $categories->where('description', 'like', '%'.$request->description.'%');
+      $categories = $categories->orderBy('description')->get();
       return Inertia::render('Products/Categories/List', ['categories' => $categories]);
     }
 
