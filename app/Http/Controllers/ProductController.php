@@ -19,7 +19,6 @@ class ProductController extends BaseController
 
     public function category_index(){
       $categories = Category::all();
-      Log::info($categories);
       return Inertia::render('Products/Categories/List', ['categories' => $categories]);
     }
 
@@ -32,6 +31,17 @@ class ProductController extends BaseController
       $category->description = $request->description;
       $category->save();
       return redirect()->route('categories')->with('success', 'Categoría creada.');
+    }
+
+    public function category_edit(Category $category){
+      Log::info($category);
+      return Inertia::render('Products/Categories/Edit', ['category' => $category]);
+    }
+
+    public function category_update(Request $request, Category $category){
+      $category->description = $request->description;
+      $category->save();
+      return redirect()->route('categories')->with('success', 'Categoría actualizada.');
     }
 
     public function subcategory_index(){

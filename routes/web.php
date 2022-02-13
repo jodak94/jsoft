@@ -30,9 +30,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('products', [ProductController::class, 'index'])->name('products');
+
 Route::get('categories', [ProductController::class, 'category_index'])->name('categories');
-Route::post('categories', [ProductController::class, 'category_store'])->name('category_store');
 Route::get('categories/create', [ProductController::class, 'category_create'])->name('categories.create');
+Route::post('categories', [ProductController::class, 'category_store'])->name('category_store');
+Route::get('categories/edit/{category}', [ProductController::class, 'category_edit'])->name('categories.edit');
+Route::put('categories/{category}', [ProductController::class, 'category_update'])->name('categories.update');
+
 Route::get('subcategories', [ProductController::class, 'subcategory_index'])->name('subcategories');
 Route::get('subcategories/create', [ProductController::class, 'subcategory_create'])->name('subcategories.create');
 

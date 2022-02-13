@@ -4,14 +4,8 @@
               Categorías
         </template>
         <div class="flex items-center justify-between mb-6 text-right">
-          <!-- <search-filter v-model="form.search" class="mr-4 w-full max-w-md" @reset="reset">
-            <label class="block text-gray-700">Trashed:</label>
-            <select v-model="form.trashed" class="form-select mt-1 w-full">
-              <option :value="null" />
-              <option value="with">With Trashed</option>
-              <option value="only">Only Trashed</option>
-            </select>
-          </search-filter> -->
+          <search-filter v-model="form.search" class="mr-4 w-full max-w-md" @reset="reset">
+          </search-filter>
           <Link class="btn-default" :href="route('categories.create')">
             <span>Crear</span>
             <span class="hidden md:inline">&nbsp;Categoría</span>
@@ -22,21 +16,19 @@
           <table class="w-full whitespace-nowrap">
             <tr class="text-left font-bold">
               <th class="pb-4 pt-6 px-6">
-                <!-- Categorías -->
-
+                Descripción
               </th>
             </tr>
             <tr v-for="cat in categories" :key="cat.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
               <td class="border-t">
-                <!-- <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/contacts/${contact.id}/edit`"> -->
+                <Link class="flex items-center px-6 py-4 focus:text-sky-500" :href="route('categories.edit', {'category': cat.id})">
                   {{ cat.description }}
-                <!-- </Link> -->
+                </Link>
               </td>
               <td class="w-px border-t">
-                <!-- <Link class="flex items-center px-4" :href="`/contacts/${contact.id}/edit`" tabindex="-1"> -->
-                +++
-                  <!-- <icon name="cheveron-right" class="block w-6 h-6 fill-gray-400" /> -->
-                <!-- </Link> -->
+                <Link class="flex items-center px-4" :href="route('categories.edit', {'category': cat.id})" tabindex="-1">
+                  <icon name="cheveron-right" class="block w-6 h-6 fill-gray-400" />
+                </Link>
               </td>
             </tr>
             <tr v-if="categories.length === 0">
@@ -50,28 +42,32 @@
 <script>
     import { defineComponent } from 'vue'
     import { Head, Link } from '@inertiajs/inertia-vue3'
-    // import Icon from '@/Shared/Icon'
+    import Icon from '@/Pages/Components/Icon'
+    import SearchFilter from '@/Pages/Components/SearchFilter'
     import AppLayout from '@/Layouts/AppLayout.vue'
+    import mapValues from 'lodash/mapValues'
     export default defineComponent({
         components: {
           AppLayout,
           Link,
-          // Icon
+          Icon,
+          SearchFilter
         },
         props: {
           categories: Object,
+          search: '',
         },
-        created() {
-          console.log(this.categories)
-          console.log(this.categories.data)
-          console.log("List Categories Components")
-        },
-        watch(){
-          categories: {
-            console.log("watch")
-            console.log(this.categories)
-            console.log(this.categories.data)
+        data(){
+          return {
+            form: {
+              search: this.search
+            }
           }
-        }
+        },
+        methods: {
+          reset() {
+              this.form = mapValues(this.form, () => null);
+          },
+      },
     })
 </script>
