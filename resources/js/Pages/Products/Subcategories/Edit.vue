@@ -13,6 +13,9 @@
           <form @submit.prevent="update">
             <div class="flex flex-wrap -mb-8 -mr-6 p-8">
               <text-input v-model="form.description" :error="form.errors.description" class="pb-8 pr-6 w-full lg:w-1/2" label="Descripción" />
+              <select-input v-model="form.category_id" :error="form.errors.category_id" class="pb-8 pr-6 w-full lg:w-1/2" label="Categoría">
+                <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.description }}</option>
+              </select-input>
             </div>
             <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
               <button class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Eliminar</button>
@@ -31,21 +34,25 @@
     import TextInput from '@/Pages/Components/TextInput'
     import LoadingButton from '@/Pages/Components/LoadingButton'
     import DeleteModal from '@/Pages/Components/DeleteModal'
+    import SelectInput from '@/Pages/Components/SelectInput'
     export default defineComponent({
         components: {
           AppLayout,
           LoadingButton,
           TextInput,
           Link,
-          DeleteModal
+          DeleteModal,
+          SelectInput
         },
         props: {
+          categories: Array,
           subcategory: Object,
         },
         data() {
           return {
             form: this.$inertia.form({
-              description: this.category.description,
+              description: this.subcategory.description,
+              category_id: this.subcategory.category_id,
             }),
             showConfirmModal: false
           }

@@ -18,11 +18,19 @@
               <th class="pb-4 pt-6 px-6">
                 Descripción
               </th>
+              <th class="pb-4 pt-6 px-6">
+                Categoría
+              </th>
             </tr>
             <tr v-for="cat in subcategories" :key="cat.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
               <td class="border-t">
                 <Link class="flex items-center px-6 py-4 focus:text-sky-500" :href="route('subcategories.edit', {'subcategory': cat.id})">
                   {{ cat.description }}
+                </Link>
+              </td>
+              <td class="border-t">
+                <Link class="flex items-center px-6 py-4 focus:text-sky-500" :href="route('subcategories.edit', {'subcategory': cat.id})">
+                  {{ cat.category.description }}
                 </Link>
               </td>
               <td class="w-px border-t">
@@ -65,6 +73,8 @@
               description: this.description
             }
           }
+        },
+        created(){
         },
         watch: {
           form: {

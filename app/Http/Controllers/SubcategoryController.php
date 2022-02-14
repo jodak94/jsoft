@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Log;
 use App\Models\Subcategory;
+use App\Models\Category;
 
 class SubcategoryController extends BaseController
 {
@@ -17,27 +18,31 @@ class SubcategoryController extends BaseController
       $subcategories = Subcategory::select();
       if(isset($request->description) && trim($request->description) != '')
         $subcategories->where('description', 'like', '%'.$request->description.'%');
-      $subcategories = $subcategories->orderBy('description')->get();
+      $subcategories = $subcategories
+                      ->with(['category' => function($q){$q->select('id','description')->get();}])->orderBy('description')
+                      ->get();
       return Inertia::render('Products/Subcategories/List', ['subcategories' => $subcategories]);
     }
 
     public function create(){
-      return Inertia::render('Products/Subcategories/Create');
+      return Inertia::render('Products/Subcategories/Create', ['categories' => Category::select('id', 'description')->get()]);
     }
 
     public function store(Request $request){
       $subcategory = new Subcategory();
       $subcategory->description = $request->description;
+      $subcategory->category_id = $request->category_id;
       $subcategory->save();
       return redirect()->route('subcategories')->with('success', 'Subcategoría creada.');
     }
 
     public function edit(Subcategory $subcategory){
-      return Inertia::render('Products/Subcategories/Edit', ['category' => $subcategory]);
+      return Inertia::render('Products/Subcategories/Edit', ['subcategory' => $subcategory, 'categories' => Category::select('id', 'description')->get()]);
     }
 
-    public function update(Request $request, Subcategory $category){
+    public function update(Request $request, Subcategory $subcategory){
       $subcategory->description = $request->description;
+      $subcategory->category_id = $request->category_id;
       $subcategory->save();
       return redirect()->route('subcategories')->with('success', 'Subcategoría actualizada.');
     }

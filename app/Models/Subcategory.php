@@ -8,7 +8,7 @@ class Subcategory extends Model
 {
     protected $table = 'subcategories';
     public $translatedAttributes = [];
-    protected $fillable = ['description', 'categorie_id'];
+    protected $fillable = ['description', 'category_id'];
 
     public function category(){
       return $this->belongsTo('App\Models\Category');

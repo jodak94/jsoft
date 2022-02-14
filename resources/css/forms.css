@@ -5,7 +5,7 @@
 .form-input,
 .form-textarea,
 .form-select {
-  @apply p-2 leading-normal block w-full border text-gray-700 bg-white font-sans rounded text-left appearance-none relative focus:border-sky-400;
+  @apply p-2 leading-normal block w-full border-gray-300 text-gray-700 bg-white font-sans rounded text-left appearance-none relative focus:ring focus:ring-indigo-300 focus:ring-opacity-50 focus:border-indigo-300;
 
   &::placeholder {
     @apply text-gray-500 opacity-100;

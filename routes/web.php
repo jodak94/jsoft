@@ -34,8 +34,8 @@ Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->
 Route::get('subcategories', [SubcategoryController::class, 'index'])->name('subcategories');
 Route::get('subcategories/create', [SubcategoryController::class, 'create'])->name('subcategories.create');
 Route::post('subcategories', [SubcategoryController::class, 'store'])->name('subcategories.store');
-Route::get('subcategories/edit/{category}', [SubcategoryController::class, 'edit'])->name('subcategories.edit');
-Route::put('subcategories/{category}', [SubcategoryController::class, 'update'])->name('subcategories.update');
-Route::delete('categories/{category}', [SubcategoryController::class, 'destroy'])->name('subcategories.destroy');
+Route::get('subcategories/edit/{subcategory}', [SubcategoryController::class, 'edit'])->name('subcategories.edit');
+Route::put('subcategories/{subcategory}', [SubcategoryController::class, 'update'])->name('subcategories.update');
+Route::delete('subcategories/{subcategory}', [SubcategoryController::class, 'destroy'])->name('subcategories.destroy');
 
 Route::get('warehouses', [WarehouseController::class, 'index'])->name('warehouses');
