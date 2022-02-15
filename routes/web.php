@@ -22,7 +22,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('products', [ProductController::class, 'index'])->name('products');
 
-// Categories
+//Categories
 Route::get('categories', [CategoryController::class, 'index'])->name('categories');
 Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
 Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');
@@ -38,4 +38,10 @@ Route::get('subcategories/edit/{subcategory}', [SubcategoryController::class, 'e
 Route::put('subcategories/{subcategory}', [SubcategoryController::class, 'update'])->name('subcategories.update');
 Route::delete('subcategories/{subcategory}', [SubcategoryController::class, 'destroy'])->name('subcategories.destroy');
 
+//Warehouses
 Route::get('warehouses', [WarehouseController::class, 'index'])->name('warehouses');
+Route::get('warehouses/create', [WarehouseController::class, 'create'])->name('warehouses.create');
+Route::post('warehouses', [WarehouseController::class, 'store'])->name('warehouses.store');
+Route::get('warehouses/edit/{warehouse}', [WarehouseController::class, 'edit'])->name('warehouses.edit');
+Route::put('warehouses/{warehouse}', [WarehouseController::class, 'update'])->name('warehouses.update');
+Route::delete('warehouses/{warehouse}', [WarehouseController::class, 'destroy'])->name('warehouses.destroy');

@@ -25,7 +25,7 @@ class SubcategoryController extends BaseController
     }
 
     public function create(){
-      return Inertia::render('Products/Subcategories/Create', ['categories' => Category::select('id', 'description')->get()]);
+      return Inertia::render('Products/Subcategories/Create', ['categories' => Category::select('id', 'description')->orderBy('description')->get()]);
     }
 
     public function store(Request $request){
@@ -37,7 +37,7 @@ class SubcategoryController extends BaseController
     }
 
     public function edit(Subcategory $subcategory){
-      return Inertia::render('Products/Subcategories/Edit', ['subcategory' => $subcategory, 'categories' => Category::select('id', 'description')->get()]);
+      return Inertia::render('Products/Subcategories/Edit', ['subcategory' => $subcategory, 'categories' => Category::select('id', 'description')->orderBy('description')->get()]);
     }
 
     public function update(Request $request, Subcategory $subcategory){

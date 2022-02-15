@@ -46,12 +46,4 @@ class CategoryController extends BaseController
       $category->delete();
       return redirect()->route('categories')->with('success', 'Categoría eliminada.');
     }
-
-    public function subcategory_index(){
-      return Inertia::render('Products/Subcategories/List');
-    }
-
-    public function subcategory_create(){
-      return Inertia::render('Products/Subcategories/Create');
-    }
 }
