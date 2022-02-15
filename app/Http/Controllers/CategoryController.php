@@ -46,4 +46,9 @@ class CategoryController extends BaseController
       $category->delete();
       return redirect()->route('categories')->with('success', 'Categoría eliminada.');
     }
+
+    public function subcategories(Category $category){
+      Log::info($category->description);
+      return response()->json(['subcategories' => $category->subcategories]);
+    }
 }

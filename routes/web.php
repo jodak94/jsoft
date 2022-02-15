@@ -19,8 +19,13 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
-
+//Products
 Route::get('products', [ProductController::class, 'index'])->name('products');
+Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
+Route::post('products', [ProductController::class, 'store'])->name('products.store');
+Route::get('products/edit/{product}', [ProductController::class, 'edit'])->name('products.edit');
+Route::put('products/{product}', [ProductController::class, 'update'])->name('products.update');
+Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 //Categories
 Route::get('categories', [CategoryController::class, 'index'])->name('categories');
@@ -29,6 +34,7 @@ Route::post('categories', [CategoryController::class, 'store'])->name('categorie
 Route::get('categories/edit/{category}', [CategoryController::class, 'edit'])->name('categories.edit');
 Route::put('categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
 Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+Route::get('categories/subcategories/{category}', [CategoryController::class, 'subcategories'])->name('categories.subcategories');
 
 //Subcategories
 Route::get('subcategories', [SubcategoryController::class, 'index'])->name('subcategories');
