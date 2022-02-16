@@ -1,7 +1,7 @@
 <template>
   <div :class="$attrs.class">
     <label v-if="label" class="form-label" :for="id">{{ label }}:</label>
-    <jet-input :id="id" ref="input" v-bind="{ ...$attrs, class: null }" :class="{ error: error }" :type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
+    <jet-input :id="id" ref="input" v-bind="{ ...$attrs, class: null }" :class="{ error: error }" :type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"/>
     <div v-if="error" class="form-error">{{ error }}</div>
   </div>
 </template>
@@ -27,7 +27,10 @@ export default {
     },
     error: String,
     label: String,
-    modelValue: String,
+    modelValue: {
+      modelValue: String,
+      default: ''
+    },
   },
   emits: ['update:modelValue'],
   methods: {

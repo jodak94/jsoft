@@ -12,6 +12,7 @@ use Log;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Subcategory;
+use App\Models\Warehouse;
 
 class ProductController extends BaseController
 {
@@ -26,7 +27,7 @@ class ProductController extends BaseController
     public function create(){
       return Inertia::render('Products/Create', [
         'categories' => Category::select('id', 'description')->orderBy('description')->get(),
-        // 'subcategories' => Subcategory::select('id', 'description')->orderBy('description')->get(),
+        'warehouses' => Warehouse::select('id', 'name')->get(),
       ]);
     }
 

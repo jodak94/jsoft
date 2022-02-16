@@ -13,22 +13,57 @@
         <div class="py-12 bg-white overflow-hidden shadow-xl sm:rounded-lg">
           <form @submit.prevent="store">
             <div class="flex flex-wrap -mb-8 -mr-6 p-8">
-              <text-input v-model="form.description" :error="form.errors.description" class="pb-8 pr-6 w-full lg:w-1/2" label="Descripción" />
-              <text-input v-model="form.code" :error="form.errors.code" class="pb-8 pr-6 w-full lg:w-1/2" label="Código" />
-              <text-input v-model="form.sale_price" :error="form.errors.sale_price" :type="'number'" class="pb-8 pr-6 w-full lg:w-1/2" label="Precio de venta" />
-              <text-input v-model="form.wholesale_price" :error="form.errors.wholesale_price" :type="'number'" class="pb-8 pr-6 w-full lg:w-1/2" label="Precio Mayorista" />
-              <select-input v-model="form.tax" :error="form.errors.tax" class="pb-8 pr-6 w-full lg:w-1/2" label="IVA">
+              <div class="lg:w-4/5 flex flex-wrap ">
+                <text-input v-model="form.description" :error="form.errors.description" class="pb-8 pr-6 w-full lg:w-1/2" label="Descripción" />
+                <text-input v-model="form.code" :error="form.errors.code" class="pb-8 pr-6 w-full lg:w-1/2" label="Código" />
+                <text-input v-model="form.sale_price" :error="form.errors.sale_price" :type="'number'" class="pb-8 pr-6 w-full lg:w-1/2" label="Precio de venta" />
+                <text-input v-model="form.wholesale_price" :error="form.errors.wholesale_price" :type="'number'" class="pb-8 pr-6 w-full lg:w-1/2" label="Precio Mayorista" />
+
+              </div>
+              <div class="lg:w-1/5">
+                <div class="pr-6">
+                  <drop-zone/>
+                </div>
+              </div>
+              <select-input v-model="form.tax" :error="form.errors.tax" class="pb-8 pr-6 w-full lg:w-1/3" label="IVA">
                 <option :value="10">10%</option>
                 <option :value="5">5%</option>
                 <option :value="0">0%</option>
               </select-input>
-              <select-input v-model="form.category_id" :error="form.errors.category_id" class="pb-8 pr-6 w-full lg:w-1/2" label="Categoría" @change="get_subcategories($event)">
+              <select-input v-model="form.category_id" :error="form.errors.category_id" class="pb-8 pr-6 w-full lg:w-1/3" label="Categoría" @change="get_subcategories($event)">
                 <option :value="null">---</option>
                 <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.description }}</option>
               </select-input>
-              <select-input v-model="form.subcategory_id" :error="form.errors.subcategory_id" class="pb-8 pr-6 w-full lg:w-1/2" label="Subcategoría">
+              <select-input v-model="form.subcategory_id" :error="form.errors.subcategory_id" class="pb-8 pr-6 w-full lg:w-1/3" label="Subcategoría">
                 <option v-for="sub in subcategories" :key="sub.id" :value="sub.id">{{ sub.description }}</option>
               </select-input>
+              <h1 class="mb-4 text-2xl text-center w-full">Stock por Depósito</h1>
+              <table class="w-full">
+                <thead>
+                  <tr>
+                    <th>Depósito</th>
+                    <th>Stock</th>
+                    <th>Stock crítico</th>
+                  </tr>
+                </thead>
+                <tbody class="pb-2 pt-2 border-b border-t">
+                  <tr v-for="war in form.warehouses">
+                    <td>{{war.name}}</td>
+                    <td>
+                      <text-input v-model="war.pivot.initial_stock" :type="'number'" />
+                    </td>
+                    <td>
+                      <text-input v-model="war.pivot.critical_stock" :type="'number'" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- <span v-for="war in form.warehouses" class="flex flex-wrap w-full">
+                <text-input v-model="war.name" class="pb-2 pr-6 w-full lg:w-1/3" readonly/>
+                <text-input v-model="war.pivot.initial_stock" :type="'number'" class="pb-2 pr-6 w-full lg:w-1/3" />
+                <text-input v-model="war.pivot.minimal_stock" :type="'number'" class="pb-2 pr-6 w-full lg:w-1/3" />
+              </span> -->
             </div>
             <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
               <loading-button :loading="form.processing" class="btn-default" type="submit">Crear Producto</loading-button>
@@ -45,16 +80,19 @@
     import TextInput from '@/Pages/Components/TextInput'
     import LoadingButton from '@/Pages/Components/LoadingButton'
     import SelectInput from '@/Pages/Components/SelectInput'
+    import DropZone from '@/Pages/Components/DropZone'
     export default defineComponent({
         props: {
           categories: Array,
+          warehouses: Array,
         },
         components: {
           AppLayout,
           LoadingButton,
           TextInput,
           Link,
-          SelectInput
+          SelectInput,
+          DropZone
         },
         data() {
           return {
@@ -66,12 +104,17 @@
               tax: 10,
               category_id: null,
               subcategory_id: null,
+              warehouses: [],
             }),
             subcategories: [{'id': null, 'description': '---'}],
           }
         },
         created() {
-
+          this.form.warehouses = this.warehouses;
+          this.form.warehouses.forEach(w => {
+             w.pivot = {'initial_stock':0, 'critical_stock':0};
+          });
+          console.log(this.form.warehouses)
         },
         methods: {
           store() {
