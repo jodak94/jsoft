@@ -31,12 +31,11 @@ class ProductController extends BaseController
       ]);
     }
 
-    // public function store(Request $request){
-    //   $category = new Category();
-    //   $category->description = $request->description;
-    //   $category->save();
-    //   return redirect()->route('categories')->with('success', 'Categoría creada.');
-    // }
+    public function store(Request $request){
+      $product = new Product();
+      Log::info($request->all());
+      // return redirect()->route('products')->with('success', 'Producto creado.');
+    }
     //
     // public function edit(Category $category){
     //   return Inertia::render('Products/Categories/Edit', ['category' => $category]);

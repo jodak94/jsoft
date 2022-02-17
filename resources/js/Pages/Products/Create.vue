@@ -22,7 +22,7 @@
               </div>
               <div class="lg:w-1/5">
                 <div class="pr-6">
-                  <drop-zone/>
+                  <drop-zone @uploadedFile="uploadedFile"/>
                 </div>
               </div>
               <select-input v-model="form.tax" :error="form.errors.tax" class="pb-8 pr-6 w-full lg:w-1/3" label="IVA">
@@ -58,12 +58,6 @@
                   </tr>
                 </tbody>
               </table>
-
-              <!-- <span v-for="war in form.warehouses" class="flex flex-wrap w-full">
-                <text-input v-model="war.name" class="pb-2 pr-6 w-full lg:w-1/3" readonly/>
-                <text-input v-model="war.pivot.initial_stock" :type="'number'" class="pb-2 pr-6 w-full lg:w-1/3" />
-                <text-input v-model="war.pivot.minimal_stock" :type="'number'" class="pb-2 pr-6 w-full lg:w-1/3" />
-              </span> -->
             </div>
             <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
               <loading-button :loading="form.processing" class="btn-default" type="submit">Crear Producto</loading-button>
@@ -105,6 +99,7 @@
               category_id: null,
               subcategory_id: null,
               warehouses: [],
+              file: null
             }),
             subcategories: [{'id': null, 'description': '---'}],
           }
@@ -114,12 +109,11 @@
           this.form.warehouses.forEach(w => {
              w.pivot = {'initial_stock':0, 'critical_stock':0};
           });
-          console.log(this.form.warehouses)
         },
         methods: {
           store() {
             console.log(this.form)
-            // this.form.post(route('subcategories'));
+            this.form.post(route('products'));
           },
           get_subcategories(event){
             axios.get(route('categories.subcategories', {'category': event.target.value})).then(response => {
@@ -127,6 +121,9 @@
                 this.subcategories.unshift({'id': null, 'description': '---'});
 
             })
+          },
+          uploadedFile(file){
+            this.form.file = file;
           }
         }
     })

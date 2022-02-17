@@ -25,18 +25,24 @@
           selected: false
         }
       },
+      emits: [
+        "uploadedFile"
+      ],
       created() {
       },
       methods: {
         uploadFile(e) {
-          this.File = e.target.files;
+          this.File = e.target.files[0];
+            // this.File = e.target.files;
           this.image = URL.createObjectURL(e.target.files[0]);
           this.selected = true;
+          this.$emit('uploadedFile', e.target.files[0])
         },
         dragFile(e) {
           this.File = e.dataTransfer.files;
           this.image = URL.createObjectURL(e.dataTransfer.files[0]);
           this.selected = true;
+          this.$emit('uploadedFile', e.dataTransfer.files[0])
         },
         selectFile(){
            let elem = this.$refs.inputFileBtn;

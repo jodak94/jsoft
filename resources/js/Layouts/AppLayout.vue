@@ -238,7 +238,7 @@
             <!-- Page Content -->
             <div  class="flex flex-wrap sm:flex-nowrap">
                 <side-bar></side-bar>
-                <main class="my-5 py-6 px-4 w-full sm:w-2/3 sm:mx-2 sm:my-3 md:mx-4 md:px-10 lg:mx-auto">
+                <main class="my-5 py-6 px-4 w-full sm:mx-2 sm:my-3 md:mx-4 md:px-10 lg:mx-auto">
                     <slot></slot>
                 </main>
             </div>
