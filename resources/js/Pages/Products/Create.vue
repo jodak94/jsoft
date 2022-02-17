@@ -38,7 +38,7 @@
                 <option v-for="sub in subcategories" :key="sub.id" :value="sub.id">{{ sub.description }}</option>
               </select-input>
               <h1 class="mb-4 text-2xl text-center w-full">Stock por Depósito</h1>
-              <table class="w-full">
+              <table class="w-full mb-8">
                 <thead>
                   <tr>
                     <th>Depósito</th>
@@ -46,7 +46,7 @@
                     <th>Stock crítico</th>
                   </tr>
                 </thead>
-                <tbody class="pb-2 pt-2 border-b border-t">
+                <tbody class="border-b border-t">
                   <tr v-for="war in form.warehouses">
                     <td>{{war.name}}</td>
                     <td>

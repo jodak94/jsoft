@@ -2,7 +2,7 @@
   <div @dragover.prevent @drop.prevent>
     <label class="form-label">Imágen</label>
     <input type="file" multiple @change="uploadFile" class="hidden" ref="inputFileBtn"/>
-    <div @drop="dragFile" class="border-2 rounded border-dashed border-gray-300 bg-gray-200 hover:cursor-pointer" @click="selectFile">
+    <div @drop="dragFile" class="border-2 rounded border-dashed border-gray-300 bg-gray-100 hover:cursor-pointer" @click="selectFile">
       <img :src="image" v-if="selected">
       <span  v-if="!selected" class="px-5 py-8 flex text-gray-400 text-center">Suelte o presione aquí para agregar una imágen</span>
     </div>
