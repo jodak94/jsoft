@@ -75,6 +75,7 @@
     import LoadingButton from '@/Pages/Components/LoadingButton'
     import SelectInput from '@/Pages/Components/SelectInput'
     import DropZone from '@/Pages/Components/DropZone'
+    import { useForm } from '@inertiajs/inertia-vue3'
     export default defineComponent({
         props: {
           categories: Array,
@@ -90,7 +91,7 @@
         },
         data() {
           return {
-            form: this.$inertia.form({
+            form: useForm({
               description: '',
               code: '',
               sale_price: '',
@@ -112,7 +113,9 @@
         },
         methods: {
           store() {
-            console.log(this.form)
+            // let formData new FormData();
+            // formData.append('file', tj)
+            // console.log(this.form)
             this.form.post(route('products'));
           },
           get_subcategories(event){
