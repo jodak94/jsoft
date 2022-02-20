@@ -19,7 +19,19 @@
                 Descripción
               </th>
               <th class="pb-4 pt-6 px-6">
+                Código
+              </th>
+              <th class="pb-4 pt-6 px-6">
+                Precio de venta
+              </th>
+              <th class="pb-4 pt-6 px-6">
+                Stock Total
+              </th>
+              <th class="pb-4 pt-6 px-6">
                 Categoría
+              </th>
+              <th class="pb-4 pt-6 px-6">
+                Subcategoría
               </th>
             </tr>
             <tr v-for="product in products" :key="product.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
@@ -30,7 +42,27 @@
               </td>
               <td class="border-t">
                 <Link class="flex items-center px-6 py-4 focus:text-sky-500" :href="route('products.edit', {'product': product.id})">
-                  {{ product.category.description }}
+                  {{ product.code }}
+                </Link>
+              </td>
+              <td class="border-t">
+                <Link class="flex items-center px-6 py-4 focus:text-sky-500" :href="route('products.edit', {'product': product.id})">
+                  {{ product.sale_price }}
+                </Link>
+              </td>
+              <td class="border-t">
+                <Link class="flex items-center px-6 py-4 focus:text-sky-500" :href="route('products.edit', {'product': product.id})">
+                  {{ product.total_stock }}
+                </Link>
+              </td>
+              <td class="border-t">
+                <Link class="flex items-center px-6 py-4 focus:text-sky-500" :href="route('products.edit', {'product': product.id})">
+                  {{ product.category_desc }}
+                </Link>
+              </td>
+              <td class="border-t">
+                <Link class="flex items-center px-6 py-4 focus:text-sky-500" :href="route('products.edit', {'product': product.id})">
+                  {{ product.subcategory_desc }}
                 </Link>
               </td>
               <td class="w-px border-t">
@@ -75,6 +107,7 @@
           }
         },
         created(){
+          console.log(this.products)
         },
         watch: {
           form: {

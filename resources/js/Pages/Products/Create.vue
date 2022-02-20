@@ -50,7 +50,7 @@
                   <tr v-for="war in form.warehouses">
                     <td>{{war.name}}</td>
                     <td>
-                      <text-input v-model="war.pivot.initial_stock" :type="'number'" />
+                      <text-input v-model="war.pivot.stock" :type="'number'" />
                     </td>
                     <td>
                       <text-input v-model="war.pivot.critical_stock" :type="'number'" />
@@ -108,7 +108,7 @@
         created() {
           this.form.warehouses = this.warehouses;
           this.form.warehouses.forEach(w => {
-             w.pivot = {'initial_stock':0, 'critical_stock':0};
+             w.pivot = {'stock':0, 'critical_stock':0};
           });
         },
         methods: {

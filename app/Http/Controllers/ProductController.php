@@ -13,6 +13,9 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Warehouse;
+use Storage;
+use File;
+use DB;
 
 class ProductController extends BaseController
 {
@@ -32,9 +35,34 @@ class ProductController extends BaseController
     }
 
     public function store(Request $request){
-      $product = new Product();
-      Log::info($request->all());
-      // return redirect()->route('products')->with('success', 'Producto creado.');
+      try{
+        DB::beginTransaction();
+        $product = new Product();
+        $product->description = $request->description;
+        $product->code = $request->code;
+        $product->sale_price = $request->sale_price;
+        $product->wholesale_price = $request->wholesale_price;
+        $product->tax = $request->tax;
+        $product->category_id = $request->category_id;
+        $product->subcategory_id = $request->subcategory_id;
+        if(isset($request->file)){
+          $file = $request->file;
+          $ext = $file->getClientOriginalExtension();
+          $filename = hash( 'sha256', time()) . '.' . $ext;
+          Storage::put('public/' . $filename, file_get_contents($file));
+          $product->file_url = $filename;
+        }
+        $product->save();
+        foreach ($request->warehouses as $warehouse) {
+          $product->warehouses()->attach($warehouse['id'], $warehouse['pivot']);
+        }
+        DB::commit();
+        return redirect()->route('products')->with('success', 'Producto creado.');
+      }catch (Throwable $e) {
+            Log::info($e);
+            DB::rollback();
+            // return false;
+      }
     }
     //
     // public function edit(Category $category){

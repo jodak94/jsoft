@@ -10,4 +10,7 @@ class Warehouse extends Model
     public $translatedAttributes = [];
     protected $fillable = ['description'];
 
+    public function products(){
+      return $this->hasMany('App\Models\Product', 'product_warehouse');
+    }
 }
