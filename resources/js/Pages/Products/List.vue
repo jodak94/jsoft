@@ -1,5 +1,5 @@
 <template>
-    <app-layout title="Categorias">
+    <app-layout title="Productos">
         <template #header>
               Productos
         </template>
@@ -51,9 +51,10 @@
                 </Link>
               </td>
               <td class="border-t">
-                <Link class="flex items-center px-6 py-4 focus:text-sky-500" :href="route('products.edit', {'product': product.id})">
+                <span class="flex items-center px-6 py-4 focus:text-sky-500 hover:cursor-pointer" @click="getWarehousesData(product.id)">
                   {{ product.total_stock }}
-                </Link>
+                  <icon name="document-search" class="block w-6 h-6 text-gray-400 ml-2" />
+                </span>
               </td>
               <td class="border-t">
                 <Link class="flex items-center px-6 py-4 focus:text-sky-500" :href="route('products.edit', {'product': product.id})">
@@ -72,10 +73,25 @@
               </td>
             </tr>
             <tr v-if="products.length === 0">
-              <td class="px-6 py-4 border-t" colspan="4">No se encontraron datos.</td>
+              <td class="px-6 py-4 border-t" colspan="6">No se encontraron datos.</td>
             </tr>
           </table>
         </div>
+        <jet-dialog-modal :show="showDetailsModal">
+            <template #title>
+                Stock por depósito
+            </template>
+
+            <template #content>
+                Está seguro que quiere eliminar el registro?
+            </template>
+
+            <template #footer>
+                <button class="btn-default" @click.native="showDetailsModal = false">
+                    Aceptar
+                </button>
+            </template>
+        </jet-dialog-modal>
     </app-layout>
 </template>
 
@@ -88,12 +104,14 @@
     import mapValues from 'lodash/mapValues'
     import throttle from 'lodash/throttle'
     import pickBy from 'lodash/pickBy'
+    import JetDialogModal from '@/Jetstream/DialogModal'
     export default defineComponent({
         components: {
           AppLayout,
           Link,
           Icon,
-          SearchFilter
+          SearchFilter,
+          JetDialogModal
         },
         props: {
           products: Object,
@@ -103,7 +121,8 @@
           return {
             form: {
               description: this.description
-            }
+            },
+            showDetailsModal: false,
           }
         },
         created(){
@@ -121,6 +140,9 @@
           reset() {
               this.form = mapValues(this.form, () => null);
           },
+          getWarehousesData(id){
+            console.log(id)
+          }
       },
     })
 </script>
