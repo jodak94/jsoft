@@ -9,8 +9,7 @@
           <span class="text-sky-400 font-medium"> /</span>
           <span class="text-gray-400 font-medium"> Crear </span>
         </h1>
-        <!-- <div class="py-12 bg-white rounded-md shadow overflow-hidden"> -->
-        <div class="py-12 bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="pt-12 bg-white overflow-hidden shadow-xl sm:rounded-lg">
           <form @submit.prevent="store">
             <div class="flex flex-wrap -mb-8 -mr-6 p-8">
               <div class="lg:w-4/5 flex flex-wrap ">
@@ -113,16 +112,13 @@
         },
         methods: {
           store() {
-            // let formData new FormData();
-            // formData.append('file', tj)
-            // console.log(this.form)
             this.form.post(route('products'));
           },
           get_subcategories(event){
             axios.get(route('categories.subcategories', {'category': event.target.value})).then(response => {
                 this.subcategories = response.data.subcategories;
                 this.subcategories.unshift({'id': null, 'description': '---'});
-
+                this.form.subcategory_id = null;
             })
           },
           uploadedFile(file){

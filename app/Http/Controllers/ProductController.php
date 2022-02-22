@@ -19,10 +19,12 @@ use DB;
 
 class ProductController extends BaseController
 {
-    public function index(){
+    public function index(Request $request){
       $products = Product::select();
-      if(isset($request->description) && trim($request->description) != '')
-        $products->where('description', 'like', '%'.$request->description.'%');
+      if(isset($request->searchFilter) && trim($request->searchFilter) != ''){
+        $products->where('description', 'like',  '%' . $request->searchFilter . '%')
+                 ->orWhere('code', 'like', '%' . $request->searchFilter . '%');
+      }
       $products = $products->orderBy('description')->get();
       return Inertia::render('Products/List', ['products' => $products]);
     }
@@ -30,7 +32,7 @@ class ProductController extends BaseController
     public function create(){
       return Inertia::render('Products/Create', [
         'categories' => Category::select('id', 'description')->orderBy('description')->get(),
-        'warehouses' => Warehouse::select('id', 'name')->get(),
+        'warehouses' => Warehouse::select('id', 'name')->get()
       ]);
     }
 
@@ -61,19 +63,60 @@ class ProductController extends BaseController
       }catch (Throwable $e) {
             Log::info($e);
             DB::rollback();
-            // return false;
+            return false;
       }
     }
-    //
-    // public function edit(Category $category){
-    //   return Inertia::render('Products/Categories/Edit', ['category' => $category]);
-    // }
-    //
-    // public function update(Request $request, Category $category){
-    //   $category->description = $request->description;
-    //   $category->save();
-    //   return redirect()->route('categories')->with('success', 'Categoría actualizada.');
-    // }
+
+    public function warehousesData(Product $product){
+      return response()->json(['error' => false, 'warehouses' => $product->warehouses]);
+    }
+
+    public function edit(Product $product){
+      return Inertia::render('Products/Edit', [
+        'product' => $product,
+        'categories' => Category::select('id', 'description')->orderBy('description')->get(),
+        'subcategories' => Subcategory::select('id', 'description')->where('category_id', $product->category_id)->orderBy('description')->get()
+      ]);
+    }
+
+    public function update(Request $request, Product $product){
+      // Log::info($product);
+      Log::info($request->all());
+      Log::info($request->description);
+      try{
+        DB::beginTransaction();
+        $product->description = $request->description;
+        $product->code = $request->code;
+        $product->sale_price = $request->sale_price;
+        $product->wholesale_price = $request->wholesale_price;
+        $product->tax = $request->tax;
+        $product->category_id = $request->category_id;
+        $product->subcategory_id = $request->subcategory_id;
+        if($request->file_changed){
+          Storage::delete($product->file_url);
+          if(isset($request->file)){
+            $file = $request->file;
+            $ext = $file->getClientOriginalExtension();
+            $filename = hash( 'sha256', time()) . '.' . $ext;
+            Storage::put('public/' . $filename, file_get_contents($file));
+            $product->file_url = $filename;
+          }
+        }
+        $product->save();
+        foreach ($request->warehouses as $warehouse) {
+          $product->warehouses()->updateExistingPivot($warehouse, [
+            'stock' => $warehouse['pivot']['stock'],
+            'critical_stock' => $warehouse['pivot']['critical_stock'],
+          ]);
+        }
+        DB::commit();
+        return redirect()->route('products')->with('success', 'Producto actualizada.');
+      }catch (Throwable $e) {
+          Log::info($e);
+          DB::rollback();
+          return false;
+      }
+    }
     //
     // public function destroy(Category $category){
     //   $category->delete();

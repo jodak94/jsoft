@@ -9,7 +9,7 @@ class Product extends Model
     protected $table = 'products';
     public $translatedAttributes = [];
     protected $fillable = ['description'];
-    protected $appends = ['category_desc', 'subcategory_desc', 'total_stock'];
+    protected $appends = ['category_desc', 'subcategory_desc', 'total_stock', 'image_url'];
 
     public function subcategory(){
       return $this->belongsTo('App\Models\Subcategory');
@@ -24,14 +24,18 @@ class Product extends Model
     }
 
     public function getCategoryDescAttribute(){
-      return $this->category->description;
+      return $this->category == null ? '---' : $this->subcategory->description;;
     }
 
     public function getSubcategoryDescAttribute(){
-      return $this->subcategory->description == null ? '---' : $this->subcategory->description;
+      return $this->subcategory == null ? '---' : $this->subcategory->description;
     }
 
     public function getTotalStockAttribute(){
       return $this->warehouses->sum('pivot.stock');
+    }
+
+    public function getImageUrlAttribute(){
+      return asset('/storage/' . $this->attributes['file_url']);
     }
 }

@@ -4,7 +4,7 @@
               Productos
         </template>
         <div class="flex items-center justify-between mb-6 text-right">
-          <search-filter v-model="form.description" class="mr-4 w-full max-w-md" @reset="reset">
+          <search-filter v-model="form.searchFilter" class="mr-4 w-full max-w-md" @reset="reset">
           </search-filter>
           <Link class="btn-default" :href="route('products.create')">
             <span>Crear</span>
@@ -81,9 +81,29 @@
             <template #title>
                 Stock por depósito
             </template>
-
             <template #content>
-                Está seguro que quiere eliminar el registro?
+              <table class="w-full whitespace-nowrap">
+                <tr class="text-left font-bold">
+                  <th class="pb-4 pt-6 px-6">
+                    Depósito
+                  </th>
+                  <th class="pb-4 pt-6 px-6">
+                    Stock
+                  </th>
+                </tr>
+                <tr v-for="warehouse in warehouses" :key="warehouse.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
+                  <td class="border-t ">
+                    <span class="flex items-center px-6 py-4">
+                      {{ warehouse.name }}
+                    </span>
+                  </td>
+                  <td class="border-t">
+                    <span class="flex items-center px-6 py-4">
+                      {{ warehouse.pivot.stock }}
+                    </span>
+                  </td>
+                </tr>
+              </table>
             </template>
 
             <template #footer>
@@ -120,9 +140,10 @@
         data(){
           return {
             form: {
-              description: this.description
+              searchFilter: this.searchFilter
             },
             showDetailsModal: false,
+            warehouses: [],
           }
         },
         created(){
@@ -141,7 +162,10 @@
               this.form = mapValues(this.form, () => null);
           },
           getWarehousesData(id){
-            console.log(id)
+            axios.get(route('products.warehouses_data', {'product': id})).then(response => {
+                this.warehouses = response.data.warehouses;
+                this.showDetailsModal = true;
+            })
           }
       },
     })
