@@ -9,7 +9,7 @@
           <span class="text-sky-400 font-medium"> /</span>
           <span class="text-gray-400 font-medium"> Crear </span>
         </h1>
-        <div class="pt-12 bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="default-box">
           <form @submit.prevent="store">
             <div class="flex flex-wrap -mb-8 -mr-6 p-8">
               <div class="lg:w-4/5 flex flex-wrap ">

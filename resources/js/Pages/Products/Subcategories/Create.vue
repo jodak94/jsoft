@@ -9,7 +9,7 @@
           <span class="text-sky-400 font-medium"> /</span>
           <span class="text-gray-400 font-medium"> Crear </span>
         </h1>
-        <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
+        <div class="default-box">
           <form @submit.prevent="store">
             <div class="flex flex-wrap -mb-8 -mr-6 p-8">
               <text-input v-model="form.description" :error="form.errors.description" class="pb-8 pr-6 w-full lg:w-1/2" label="Descripción" />

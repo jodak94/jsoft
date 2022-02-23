@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\ClientController;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -24,7 +25,7 @@ Route::get('products', [ProductController::class, 'index'])->name('products');
 Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('products', [ProductController::class, 'store'])->name('products.store');
 Route::get('products/edit/{product}', [ProductController::class, 'edit'])->name('products.edit');
-Route::put('products/{product}', [ProductController::class, 'update'])->name('products.update');
+Route::post('products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 Route::get('products/warehouses-data/{product}', [ProductController::class, 'warehousesData'])->name('products.warehouses_data');
 
@@ -52,3 +53,11 @@ Route::post('warehouses', [WarehouseController::class, 'store'])->name('warehous
 Route::get('warehouses/edit/{warehouse}', [WarehouseController::class, 'edit'])->name('warehouses.edit');
 Route::put('warehouses/{warehouse}', [WarehouseController::class, 'update'])->name('warehouses.update');
 Route::delete('warehouses/{warehouse}', [WarehouseController::class, 'destroy'])->name('warehouses.destroy');
+
+//Clients
+Route::get('clients', [ClientController::class, 'index'])->name('clients');
+Route::get('clients/create', [ClientController::class, 'create'])->name('clients.create');
+Route::post('clients', [ClientController::class, 'store'])->name('clients.store');
+Route::get('clients/edit/{client}', [ClientController::class, 'edit'])->name('clients.edit');
+Route::put('clients/{client}', [ClientController::class, 'update'])->name('clients.update');
+Route::delete('clients/{client}', [ClientController::class, 'destroy'])->name('clients.destroy');

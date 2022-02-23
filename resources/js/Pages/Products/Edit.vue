@@ -9,7 +9,7 @@
           <span class="text-sky-400 font-medium"> /</span>
           <span class="text-gray-400 font-medium"> Editar </span>
         </h1>
-        <div class="pt-12 bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="default-box">
           <form @submit.prevent="update">
             <div class="flex flex-wrap -mb-8 -mr-6 p-8">
               <div class="lg:w-4/5 flex flex-wrap ">
@@ -77,6 +77,7 @@
     import DeleteModal from '@/Pages/Components/DeleteModal'
     import SelectInput from '@/Pages/Components/SelectInput'
     import DropZone from '@/Pages/Components/DropZone'
+    import { useForm } from '@inertiajs/inertia-vue3'
     export default defineComponent({
         components: {
           AppLayout,
@@ -94,7 +95,7 @@
         },
         data() {
           return {
-            form: this.$inertia.form({
+            form: useForm({
               description: this.product.description,
               code: this.product.code,
               sale_price: this.product.sale_price,
@@ -103,16 +104,12 @@
               category_id: this.product.category_id,
               subcategory_id: this.product.subcategory_id,
               warehouses: this.product.warehouses,
-              file: this.product.file_url,
+              file: null,
               file_changed: false,
             }),
             showConfirmModal: false,
             local_subcategories: this.subcategories,
           }
-        },
-        created(){
-
-          console.log(this.product)
         },
         methods: {
           get_subcategories(event){
@@ -123,7 +120,8 @@
             })
           },
           update() {
-            this.form.put(route('products.update', {'product': this.product.id}));
+            console.log(this.form)
+            this.form.post(route('products.update', {'product': this.product.id}));
           },
           destroy(){
             this.showConfirmModal = true;
@@ -137,7 +135,7 @@
           },
           uploadedFile(file){
             this.form.file = file;
-            this.file_changed = true;
+            this.form.file_changed = true;
           }
         }
     })

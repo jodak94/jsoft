@@ -12,7 +12,7 @@
           </Link>
         </div>
 
-        <div class="bg-white rounded-md shadow overflow-x-auto">
+        <div class="default-box">
           <table class="w-full whitespace-nowrap">
             <tr class="text-left font-bold">
               <th class="pb-4 pt-6 px-6">

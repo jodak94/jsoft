@@ -50,9 +50,9 @@ class ProductController extends BaseController
         if(isset($request->file)){
           $file = $request->file;
           $ext = $file->getClientOriginalExtension();
-          $filename = hash( 'sha256', time()) . '.' . $ext;
-          Storage::put('public/' . $filename, file_get_contents($file));
-          $product->file_url = $filename;
+          $file_name = hash( 'sha256', time()) . '.' . $ext;
+          Storage::put($file_name, file_get_contents($file));
+          $product->file_name = $file_name;
         }
         $product->save();
         foreach ($request->warehouses as $warehouse) {
@@ -80,9 +80,6 @@ class ProductController extends BaseController
     }
 
     public function update(Request $request, Product $product){
-      // Log::info($product);
-      Log::info($request->all());
-      Log::info($request->description);
       try{
         DB::beginTransaction();
         $product->description = $request->description;
@@ -93,13 +90,15 @@ class ProductController extends BaseController
         $product->category_id = $request->category_id;
         $product->subcategory_id = $request->subcategory_id;
         if($request->file_changed){
-          Storage::delete($product->file_url);
+          Storage::delete($product->file_name);
           if(isset($request->file)){
             $file = $request->file;
             $ext = $file->getClientOriginalExtension();
-            $filename = hash( 'sha256', time()) . '.' . $ext;
-            Storage::put('public/' . $filename, file_get_contents($file));
-            $product->file_url = $filename;
+            $file_name = hash( 'sha256', time()) . '.' . $ext;
+            Storage::put($file_name, file_get_contents($file));
+            $product->file_name = $file_name;
+          }else{
+            $product->file_name = null;
           }
         }
         $product->save();
@@ -117,9 +116,10 @@ class ProductController extends BaseController
           return false;
       }
     }
-    //
-    // public function destroy(Category $category){
-    //   $category->delete();
-    //   return redirect()->route('categories')->with('success', 'Categoría eliminada.');
-    // }
+
+    public function destroy(Product $product){
+      Storage::delete($product->file_name);
+      $product->delete();
+      return redirect()->route('products')->with('success', 'Producto eliminada.');
+    }
 }

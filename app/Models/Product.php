@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
     protected $table = 'products';
-    public $translatedAttributes = [];
+    use SoftDeletes;
     protected $fillable = ['description'];
     protected $appends = ['category_desc', 'subcategory_desc', 'total_stock', 'image_url'];
 
@@ -36,6 +37,6 @@ class Product extends Model
     }
 
     public function getImageUrlAttribute(){
-      return asset('/storage/' . $this->attributes['file_url']);
+      return isset($this->attributes['file_name']) ? asset('uploads/' . $this->attributes['file_name']) : null;
     }
 }

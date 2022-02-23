@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Subcategory extends Model
 {
     protected $table = 'subcategories';
-    public $translatedAttributes = [];
     protected $fillable = ['description', 'category_id'];
 
     public function category(){

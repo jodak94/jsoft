@@ -19,6 +19,7 @@
                 return [
                     { name: 'Escritorio', route: 'dashboard'},
                     { name: 'Productos', route: 'products'},
+                    { name: 'Clientes', route: 'clients'},
                     // { name: 'Editar Perfil', route: 'profile.show'},
                     { name: 'Depósitos', route: 'warehouses'},
                     { name: 'Categorías', route: 'categories'},
