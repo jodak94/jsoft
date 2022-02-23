@@ -1,11 +1,11 @@
 <template>
-    <app-layout title="Clientes">
+    <app-layout title="Proveedores">
         <template #header>
-              Clientes
+              Proveedores
         </template>
 
         <h1 class="mb-8 text-3xl font-bold">
-          <Link class="text-sky-400 hover:text-sky-600" :href="route('clients')">Clientes</Link>
+          <Link class="text-sky-400 hover:text-sky-600" :href="route('providers')">Proveedores</Link>
           <span class="text-sky-400 font-medium"> /</span>
           <span class="text-gray-400 font-medium"> Editar </span>
         </h1>
@@ -20,7 +20,7 @@
             </div>
             <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
               <button class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Eliminar</button>
-              <loading-button :loading="form.processing" class="flex btn-default ml-auto" type="submit">Actualizar Cliente</loading-button>
+              <loading-button :loading="form.processing" class="flex btn-default ml-auto" type="submit">Actualizar Proveedor</loading-button>
             </div>
           </form>
         </div>
@@ -44,30 +44,30 @@
           DeleteModal
         },
         props: {
-          client: Object,
+          provider: Object,
         },
         data() {
           return {
             form: this.$inertia.form({
-              name: this.client.name,
-              business_name: this.client.business_name,
-              ruc: this.client.ruc,
-              phone: this.client.phone,
-              address: this.client.address,
+              name: this.provider.name,
+              business_name: this.provider.business_name,
+              ruc: this.provider.ruc,
+              phone: this.provider.phone,
+              address: this.provider.address,
             }),
             showConfirmModal: false
           }
         },
         methods: {
           update() {
-            this.form.put(route('clients.update', {'client': this.client.id}));
+            this.form.put(route('providers.update', {'provider': this.provider.id}));
           },
           destroy(){
             this.showConfirmModal = true;
           },
           deletedConfirmed(){
             this.showConfirmModal = false;
-            this.$inertia.delete(route('clients.destroy', {'client': this.client.id}))
+            this.$inertia.delete(route('providers.destroy', {'provider': this.provider.id}))
           },
           modalClosed(){
             this.showConfirmModal = false;

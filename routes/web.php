@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ProviderController;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -61,3 +62,11 @@ Route::post('clients', [ClientController::class, 'store'])->name('clients.store'
 Route::get('clients/edit/{client}', [ClientController::class, 'edit'])->name('clients.edit');
 Route::put('clients/{client}', [ClientController::class, 'update'])->name('clients.update');
 Route::delete('clients/{client}', [ClientController::class, 'destroy'])->name('clients.destroy');
+
+//Providers
+Route::get('providers', [ProviderController::class, 'index'])->name('providers');
+Route::get('providers/create', [ProviderController::class, 'create'])->name('providers.create');
+Route::post('providers', [ProviderController::class, 'store'])->name('providers.store');
+Route::get('providers/edit/{provider}', [ProviderController::class, 'edit'])->name('providers.edit');
+Route::put('providers/{provider}', [ProviderController::class, 'update'])->name('providers.update');
+Route::delete('providers/{provider}', [ProviderController::class, 'destroy'])->name('providers.destroy');
