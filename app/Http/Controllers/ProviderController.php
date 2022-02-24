@@ -36,6 +36,7 @@ class ProviderController extends BaseController
       $provider->ruc = $request->ruc;
       $provider->phone = $request->phone;
       $provider->address = $request->address;
+      $provider->observation = $request->observation;
       $provider->save();
       return redirect()->route('providers')->with('success', 'Proveedor creado.');
     }
@@ -50,6 +51,7 @@ class ProviderController extends BaseController
       $provider->ruc = $request->ruc;
       $provider->phone = $request->phone;
       $provider->address = $request->address;
+      $provider->observation = $request->observation;
       $provider->save();
       return redirect()->route('providers')->with('success', 'Proveedor actualizado.');
     }

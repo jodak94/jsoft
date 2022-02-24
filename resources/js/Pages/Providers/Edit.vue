@@ -17,6 +17,7 @@
               <text-input v-model="form.ruc" :error="form.errors.ruc" class="pb-8 pr-6 w-full lg:w-1/2" label="Ruc" />
               <text-input v-model="form.phone" :error="form.errors.phone" class="pb-8 pr-6 w-full lg:w-1/2" label="Teléfono" />
               <text-input v-model="form.address" :error="form.errors.address" class="pb-8 pr-6 w-full lg:w-1/2" label="Dirección" />
+              <text-input v-model="form.observation" :error="form.errors.observation" class="pb-8 pr-6 w-full lg:w-1/2" label="Observación" />
             </div>
             <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
               <button class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Eliminar</button>
@@ -54,6 +55,7 @@
               ruc: this.provider.ruc,
               phone: this.provider.phone,
               address: this.provider.address,
+              observation: this.provider.observation,
             }),
             showConfirmModal: false
           }

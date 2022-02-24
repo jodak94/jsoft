@@ -25,7 +25,7 @@ class Product extends Model
     }
 
     public function getCategoryDescAttribute(){
-      return $this->category == null ? '---' : $this->subcategory->description;;
+      return $this->category == null ? '---' : $this->category->description;;
     }
 
     public function getSubcategoryDescAttribute(){

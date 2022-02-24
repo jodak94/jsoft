@@ -17,6 +17,7 @@
               <text-input v-model="form.ruc" :error="form.errors.ruc" class="pb-8 pr-6 w-full lg:w-1/2" label="Ruc" />
               <text-input v-model="form.phone" :error="form.errors.phone" class="pb-8 pr-6 w-full lg:w-1/2" label="Teléfono" />
               <text-input v-model="form.address" :error="form.errors.address" class="pb-8 pr-6 w-full lg:w-1/2" label="Dirección" />
+              <text-input v-model="form.observation" :error="form.errors.observation" class="pb-8 pr-6 w-full lg:w-1/2" label="Observación" />
             </div>
             <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
               <loading-button :loading="form.processing" class="btn-default" type="submit">Crear Proveedor</loading-button>
@@ -47,6 +48,7 @@
               ruc: '',
               phone: '',
               address: '',
+              observation: '',
             }),
           }
         },
