@@ -103,7 +103,7 @@ class ProductController extends BaseController
         }
         $product->save();
         foreach ($request->warehouses as $warehouse) {
-          $product->warehouses()->updateExistingPivot($warehouse, [
+          $product->warehouses()->updateExistingPivot($warehouse['id'], [
             'stock' => $warehouse['pivot']['stock'],
             'critical_stock' => $warehouse['pivot']['critical_stock'],
           ]);
